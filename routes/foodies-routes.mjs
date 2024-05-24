@@ -21,6 +21,18 @@ router.post('/signup', doRegister);
 router.get('/login', renderLoginPage);
 router.get('/logout', doLogout);
 
+router.get('/session-info', (req, res) => {
+    if (req.session.isAuthenticated) {
+        res.json({
+            isAuthenticated: true,
+            user: req.session.user // Assuming user info is stored in session
+        });
+    } else {
+        res.json({ isAuthenticated: false });
+    }
+});
+
+
 // Protect user-profile route
 router.get('/user-profile', checkAuthenticated, async (req, res) => {
     userProfileController(req, res, { isHidden: true });
