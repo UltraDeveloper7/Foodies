@@ -1,0 +1,39 @@
+<!-- views/about.hbs -->
+<!-- Aobut us page -->
+
+{{#each renderCss}}
+    <link rel="stylesheet" href="{{this}}">
+{{/each}}
+
+<div class="page">
+    <h1>About Foodies</h1>
+    <p>Foodies is an online delivery application created for the ECE_CK802 Internet Programming Course within the ECE department of the University of Patras located in Greece.</p>
+    <p>At Foodies, we're not just about delivering delicious meals – we're also passionate about sustainability.</p>
+    <p>Based in Patras, we've chosen bikes as our mode of delivery, keeping our city green and reducing carbon emissions.</p>
+    <p>We're on a mission to offer a seamless platform for you to order food from your beloved restaurants and have it delivered right to your doorstep. </p>
+    <p>With Foodies, you can explore a diverse range of cuisines, place orders hassle-free, track your deliveries in real-time, and savor delicious meals without ever having to step outside.</p>
+    <h2>Our Team</h2>
+    <div class="team-members">
+        <!-- Team Member 1 -->
+        <div class="team-member">
+            <img src="/images/team/orestis.jpg" alt="Team Member 1">
+            <h3><a href="https://github.com/orestis-koutroumpas" target="_blank" title="github.com/orestis-koutroumpas">Orestis Koutroumpas</a></h3>
+            <p>Co-founder &amp; CEO </p>
+        </div>
+        <!-- Team Member 2 -->
+        <div class="team-member">
+            <img src="/images/team/kostas.jpg" alt="Team Member 2">
+            <h3><a href="https://github.com/UltraDeveloper7" target="_blank" title="github.com/UltraDeveloper7">Konstantinos Toutounas</a></h3>
+            <p>Co-founder &amp; CTO</p>
+        </div>
+    </div>
+    
+    <!-- Contact Info -->
+    <h2 id="contact-us">Contact Us</h2>
+    <p>If you have any questions or feedback, feel free to contact us:</p>
+    <ul>
+        <li>Email: info@foodies.com</li>
+        <li>Phone: +1234567890</li>
+        <li>Address: Panepistimioupoli Patron 265 04</li>
+    </ul>
+</div>

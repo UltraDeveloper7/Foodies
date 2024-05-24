@@ -1,0 +1,51 @@
+<!-- views/search.hbs -->
+<!-- Search page -->
+
+{{#each renderCss}}
+    <link rel="stylesheet" href="{{this}}">
+{{/each}}
+
+<section id="stores">
+    <h1>Search results for {{search}}</h1>
+    <!-- Message if unmatched results -->
+    {{#if message}}
+    <div class="search-message">
+        <img src="images/stores/sad_face.gif" alt="Sad face">
+        <p>{{message}}</p>
+    </div>
+    {{else}}
+    <h2>We found {{numStores}} stores</h2>
+    <!-- Render each store dynamically -->
+    {{#each stores}}
+    <div class="store">
+        <div class="store-container">
+            <!-- Store Image -->
+            <div class="store-image">
+                <img src="{{this.image}}" alt="{{this.name}}">
+            </div>
+            <div class="store-description">
+                <!-- Store Name -->
+                <div class="store-title">
+                    <p>{{this.name}}</p>
+                </div>
+                <!-- Store Rating and Category -->
+                <div class="store-rating">
+                    <img src="{{this.ratingImage}}" alt="Rating">
+                    <p>{{this.category}}</p>
+                </div>
+                <!-- Store Requirements: Delivery Time, Minimum Order, Delivery Fee -->
+                <div class="store-requirements">
+                    <p>{{this.estimated_delivery_time}} | Minimum {{this.min_order}}€ | Delivery {{this.delivery_fee}}€</p>
+                </div>
+                <!-- Store Description/Message -->
+                <div class="store-message">
+                    <p>{{this.description}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+    {{/if}}
+</section>
+
+<script src="/javascript/store-click.js"></script>

@@ -1,0 +1,361 @@
+/* css/header-styles.css */
+
+header {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 5;
+    transition: background-color 0.3s ease;
+}
+
+
+header.scrolled {
+    background-color: var(--white-color);
+}
+
+/* Header container style */
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5em 1em;
+}
+
+.logo-location-group {
+    display: flex;
+    align-items: center;
+    order: 1;
+}
+
+/* Logo style */
+.logo img {
+    padding: 10px;
+    margin-left: 150px;
+}
+
+/* Location icon style */
+.location-icon {
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease;
+    color: var(--black-color);
+}
+
+.location-icon:hover {
+    transform: scale(1.1);
+}
+
+/* Modal styles */
+.location-modal {
+    display: none;
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.location-content {
+    background-color: var(--white-color);
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    height: 60%;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    text-align: center;
+    position: relative;
+}
+
+.location-content .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.location-content .close:hover,
+.location-content .close:focus {
+    color: var(--black-color);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#saveLocationBtn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: var(--button-color);
+    color: var(--white-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#saveLocationBtn:hover {
+    background-color: var(--button-hover-color);
+}
+
+/* Search form style */
+.search-form {
+    order: 2;
+    flex: 1;
+    min-width: 10em;
+    max-width: 40%;
+    position: relative;
+    border-radius: 2em;
+    border: 1px solid var(--black-color);
+}
+
+.search-form input[type="text"] {
+    width: 100%;
+    padding: 1em;
+    border-radius: 2em;
+}
+
+/* CSS for the placeholder */
+.cart-placeholder {
+    display: inline-block;
+    visibility: hidden;
+    width: 40px; /* Adjust the width to match the cart icon */
+    height: 40px; /* Adjust the height to match the cart icon */
+    margin-right: 150px; /* Match the cart icon's margin-right */
+    
+}
+
+/* User and cart icons container */
+.user-cart-group {
+    order: 3;
+    display: flex;
+    align-items: center;
+    margin-right: 1em;
+    position: relative;
+}
+
+/* Icon group styles */
+.icon-group {
+    transition: transform 0.3s ease, color 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+}
+
+/* User icon */
+.user-icon {
+    background: rgba(0, 0, 0, 0.1);
+    padding: 0.25em;
+    border-radius: 2em;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.3s ease;
+}
+
+.user-icon a {
+    color: var(--black-color);
+}
+
+/* User menu */
+.sub-menu-wrap {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 10px;
+    width: 300px;
+    max-height: 0px;
+    overflow: hidden;
+    transition: max-height 0.5s;
+}
+
+.sub-menu-wrap.open-menu {
+    max-height: 400px;
+}
+
+.sub-menu {
+    background: #fff;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 10%;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.user-info h3 {
+    font-weight: 300;
+}
+
+.user-info img {
+    width: 40px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.sub-menu hr {
+    border: 0;
+    height: 2px;
+    width: 100%;
+    background: #ccc;
+    margin: 15px 0 10px;
+}
+
+.sub-menu-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #525252;
+    margin: 12px 0;
+}
+
+.sub-menu-link p {
+    width: 90%;
+}
+
+.sub-menu-link img {
+    width: 40px;
+    background: #fff;
+    border-radius: 50%;
+    padding: 8px;
+    margin-right: 15px;
+}
+
+.sub-menu-link span {
+    font-size: 20px;
+    transition: transform 0.5s;
+}
+
+.sub-menu-link:hover span {
+    transform: translate(5px);
+}
+
+.sub-menu-link:hover p {
+    font-weight: 600;
+}
+
+/* Cart icon */
+.cart-icon {
+    order: 4;
+    cursor: pointer;
+    border-radius: 2em;
+    transition: color 0.3s ease, transform 0.3s ease;
+    color: var(--black-color);
+    padding: 14px;
+    margin-right: 150px;
+}
+
+.cart-icon a {
+    color: var(--black-color);
+}
+
+/* Hover effect for user and cart icons */
+.user-icon:hover {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.cart-icon:hover {
+    transform: scale(1.1);
+}
+
+/* Adjustments for user circle icon */
+.fa-circle-user {
+    margin-right: 21px;
+}
+
+/* Ensure smooth transition for the chevron arrow */
+.fa-chevron-up {
+    transition: transform 0.3s ease;
+}
+
+/* Rotate chevron down icon */
+.fa-chevron-up.flipped {
+    transform: rotate(180deg);
+    transition: transform 0.3s ease;
+}
+
+/* Login/Signup Icon Container */
+.login-signup-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5em;
+    margin-right: 150px;
+}
+
+/* Login/Signup Button */
+.login-signup-button {
+    background: rgba(0, 0, 0, 0.1);
+    padding: 0.5em 1em;
+    border-radius: 2em;
+    cursor: pointer;
+    transition: background 0.3s ease,
+        transform 0.3s ease;
+    border: none;
+    color: var(--black-color);
+    font-size: 1em;
+    text-decoration: none;
+}
+
+/* Hover effect */
+.login-signup-button:hover {
+    background: rgba(0, 0, 0, 0.3);
+    transform: scale(1.1);
+}
+
+/* Ensuring the button text is centered */
+.login-signup-button span {
+    display: inline-block;
+    line-height: 1;
+}
+
+
+.header-divider {
+    width: 100%;
+    height: 2px;
+    background-color: var(--lightgrey); 
+}
+
+@media screen and (max-width: 1850px) {
+    .logo img {
+        margin-left: 10px;
+    }
+
+    .cart-icon {
+        margin-right: 10px;
+    }
+
+    .cart-placeholder {
+        display: none;
+    }
+
+    .logo-location-group {
+        left: 30px;
+    }
+
+    .user-cart-group {
+        right: 20px;
+    }
+
+    .login-signup-icon {
+        margin-right: -15px;
+    
+    }
+}
+
+@media screen and (max-width: 850px) {
+    .search-form {
+        display: none;
+    }
+}

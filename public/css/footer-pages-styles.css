@@ -1,0 +1,111 @@
+/* css/about-styles.css */
+
+/* Styles for the .page section */
+.page {
+    max-width: 800px; 
+    margin: 0 auto; 
+    padding: 20px; 
+    text-align: center; 
+}
+
+/* Styles for the main heading */
+.page h1 {
+    font-size: 2.5rem; 
+    margin-bottom: 20px; 
+    text-align: center; 
+    color: var(--Heading-color);
+    font-weight: bold;
+}
+
+/* Styles for paragraphs within .page */
+.page p {
+    font-size: 1.2rem; 
+    line-height: 1.6; 
+    margin-bottom: 20px;
+    text-align: left;
+    color: #34495e;
+}
+
+/* Styles for secondary headings */
+.page h2 {
+    font-size: 2rem; 
+    margin-top: 40px; 
+    margin-bottom: 20px; 
+    text-align: center;
+    color: var(--Heading-color);
+    font-weight: bold;
+}
+
+/* Styles for team members section */
+.team-members {
+    display: flex; 
+    justify-content: center; 
+    flex-wrap: wrap; 
+}
+
+/* Styles for individual team members */
+.team-member {
+    margin: 20px; 
+}
+
+/* Styles for team member images */
+.team-member img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%; 
+    object-fit: cover; 
+    margin-bottom: 10px; 
+}
+
+/* Styles for team member names */
+.team-member h3 {
+    font-size: 1.5rem; 
+    margin-bottom: 5px; 
+}
+
+/* Styles for team member links */
+.team-member a {
+    text-decoration: none;
+    color: black;
+}
+
+/* Styles for team member roles */
+.team-member p {
+    font-size: 1.1rem; 
+    color: #666; 
+}
+
+/* Styles for the unordered list */
+.page ul {
+    list-style-type: none; 
+    padding: 0; 
+    text-align: center;
+}
+
+/* Styles for list items */
+.page ul li {
+    font-size: 1.1rem; 
+    margin-bottom: 10px;
+}
+
+ul.styled-list {
+    list-style-type: none;
+    padding-left: 20px;
+    font-size: 1.1em;
+    line-height: 1.6em;
+}
+
+ul.styled-list li {
+    margin-bottom: 15px;
+    position: relative;
+    padding-left: 25px;
+}
+
+ul.styled-list li:before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--Heading-color);
+    font-size: 1.5em;
+    line-height: 0.8em;
+}

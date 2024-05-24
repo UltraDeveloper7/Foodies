@@ -1,0 +1,62 @@
+<!-- views/home.hbs -->
+<!-- Home page -->
+
+{{#each renderCss}}
+    <link rel="stylesheet" href="{{this}}">
+{{/each}}
+
+<section id="food-services">
+    <div class="food-container">
+        <div id="food-services">
+            <!-- Service 1: Food Categories -->
+            <div class="food-service food-category"> <!-- Container for food categories -->
+                <h3>Food Categories</h3>
+                <p>Choose your favorite food or drink and get your order delivered within minutes.</p>
+                <div class="services-wrapper">
+                    <!-- Render each category dynamically -->
+                    <div class="service-container">
+                        {{#each foodCategories}}
+                            <div class="service-item">
+                                <!-- Food category image -->
+                                <div class="service-image">
+                                    <img src="{{image}}" alt="{{alt}}">
+                                </div>
+                                <!-- Food category name and number of partner stores in each category -->
+                                <div class="service-details">
+                                    <p class="service-name">{{name}}</p>
+                                    <p class="service-chars">Partner stores: {{storesNumber}}</p>
+                                </div>
+                            </div>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+            <!-- Service 2: Partner stores -->
+            <div class="food-service partner-stores"> <!-- Container for partner stores -->
+                <h3>Partner stores</h3>
+                <p>Choose from a variety of restaurants and cuisines.</p>
+                <div class="services-wrapper">
+                    <!-- Render each category dynamically -->
+                    <div class="service-container">
+                        {{#each partnerStores}}
+                            <div class="service-item">
+                                <!-- Store image -->
+                                <div class="service-image">
+                                    <img src="{{image}}" alt="{{alt}}">
+                                </div>
+                                <!-- Store name and rating image -->
+                                <div class="service-details">
+                                    <p class="service-name">{{name}}</p>
+                                    <img src="{{rating}}" alt="Rating" class="service-chars">
+                                </div>
+                            </div>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="/javascript/category-search.js"></script>
+<script src="/javascript/form-search.js"></script>

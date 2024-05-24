@@ -1,0 +1,130 @@
+/* css/home-styles.css */
+
+/* Styles for the services section */
+#food-services {
+    background-color: var(--white-color); 
+}
+
+/* Styles for the container */
+.food-container {
+    margin: 0 auto; 
+    padding: 0 auto; 
+    overflow: auto; 
+}
+
+/* Styles for individual services */
+.food-service {
+    margin-bottom: 1.875em; 
+    padding: 1.25em; 
+    margin: 1em;
+    border-radius: 0.3125em; 
+    min-height: 3em; 
+}
+
+/* Styles for the services wrapper */
+.services-wrapper {
+    overflow-x: auto; /* Enable horizontal overflow scrolling */
+    overflow-y: hidden; /* Hide vertical overflow */
+    white-space: nowrap;
+    padding-top: 1em; 
+    margin-top: 1em; 
+}
+
+/* Styles for service headings */
+.service h3 {
+    font-size: 1.5em; 
+    margin-bottom: 0.625em; 
+}
+
+/* Styles for service paragraphs */
+.service p {
+    font-size: 1em; 
+    font-style: italic; 
+}
+
+/* Styles for the service container */
+.service-container {
+    display: flex; 
+    flex-wrap: nowrap; 
+    overflow-x: auto; 
+    overflow-y: hidden; 
+    scrollbar-width: auto; 
+    padding-bottom: 1.5em;
+}
+
+.service-item {
+    cursor: pointer; 
+    flex: 0 0 300px; 
+    height: 250px;
+    margin: 0.75em; 
+    text-align: center;
+    display: flex;
+    flex-direction: column; 
+    justify-content: flex-start; 
+    align-items: center;
+    border-radius: 0.625em; 
+    border: 0.125em solid #fefefe; 
+    overflow: hidden; 
+    position: relative;
+    transition: transform 0.3s ease; 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); 
+}
+
+.service-item:hover {
+    transform: scale(1.05); 
+}
+
+.service-image {
+    width: 100%;
+}
+
+.service-image img {
+    width: 100%; 
+    height: 200px; 
+    object-fit: cover; 
+}
+
+.service-details {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box; 
+    flex: 1; 
+}
+
+.service-name {
+    font-weight: bold; 
+    font-size: 1em; 
+    font-style: normal; 
+    margin: 0; 
+}
+
+.service-chars {
+    font-weight: normal; 
+    font-size: 0.8em; 
+    font-style: italic; 
+    margin: 0; 
+}
+
+.service-details img.service-chars {
+    width: auto;
+    height: 1em; 
+    margin-left: 5px; 
+}
+
+/* Media query for smaller screens */
+@media screen and (max-width: 768px) {
+    .service-item {
+        width: calc(50% - 1em); /* Set width for smaller screens */
+        height: 10em; /* Set height for smaller screens */
+        margin: 0.5em; 
+    }
+
+    .service-container {
+        display: flex; 
+        flex-wrap: wrap; /* Allow items to wrap */
+        justify-content: center; 
+        align-items: center; /* Center items vertically */
+    }
+}
