@@ -3,6 +3,7 @@
 import bcrypt from 'bcryptjs';
 import { getUserByEmail, registerUser } from '../model/model.mjs';
 
+
 export let doRegister = async function (req, res) {
     try {
         const { email, password, fname, lname, address, phone_number } = req.body;
@@ -58,11 +59,9 @@ export let doLogout = (req, res) => {
     res.redirect('/');
 }
 
-export let checkAuthenticated = function (req, res, next) {
+export function checkAuthenticated(req, res, next) {
     if (req.session.isAuthenticated) {
-        next();
-    } else {
-        res.redirect('/login');
+        return next();
     }
 }
 
@@ -77,7 +76,7 @@ export function setAuthState(req, res, next) {
 
 export async function renderLoginPage(req, res) {
     try {
-        res.render('login', {
+        res.render('partials/login', {
             layout: false,
             renderCss: [
                 '/css/login-styles.css'

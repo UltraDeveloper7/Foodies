@@ -1,6 +1,7 @@
 // app.mjs
 
 import express from 'express';
+import path from 'path';
 import { engine } from 'express-handlebars';
 import routes from './routes/foodies-routes.mjs';
 import dotenv from 'dotenv';
@@ -17,8 +18,8 @@ const app = express();
 // Use JSON middleware
 app.use(express.json());
 
-//Session activation
-app.use(foodiesSession)
+// Session activation
+app.use(foodiesSession);
 
 app.get('*', (req, res, next) => {
     res.locals.currentPath = req.path;
@@ -26,16 +27,29 @@ app.get('*', (req, res, next) => {
 });
 
 // Set up Handlebars view engine
-app.engine('.hbs', engine({ extname: '.hbs' }));
-app.set('view engine', '.hbs');
+app.engine('hbs', engine({
+    extname: 'hbs',
+    defaultLayout: 'main',
+    layoutsDir: path.join(path.resolve(), 'views', 'layouts'),
+    partialsDir: path.join(path.resolve(), 'views', 'partials')
+}));
+app.set('view engine', 'hbs');
+app.set('views', path.join(path.resolve(), 'views'));
 
 // Middleware
 app.use(express.static('public'));
 app.use(bodyParser.json()); // Parse JSON bodies
 app.use(express.urlencoded({ extended: false }));
 
-
 // Routes
 app.use('/', routes);
+
+// Error handling
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something went wrong!');
+});
+
+
 
 export { app as foodies };

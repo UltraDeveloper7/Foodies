@@ -8,7 +8,6 @@ import { cartController } from '../controller/cart-controller.mjs';
 import foodiesSession from '../app-setup/app-setup-session.mjs';
 import { doLogin, doRegister, doLogout, checkAuthenticated, setAuthState, renderLoginPage } from '../controller/login-controller.mjs';
 import { updateAddress, userProfileController, updateUserInfo, changeUserPassword } from '../controller/user-profile-controller.mjs';
-import { checkoutController } from '../controller/checkout-controller.mjs';
 
 const router = express.Router();
 
@@ -35,8 +34,17 @@ router.post('/user-profile/change-password', checkAuthenticated, async (req, res
     changeUserPassword(req, res);
 });
 
-// Protect checkout route
+// Protect checkout route and return JSON response for authentication check
+router.get('/store/:storeName/checkout-status', (req, res) => {
+    if (req.session.isAuthenticated) {
+        res.json({ isAuthenticated: true });
+    } else {
+        res.json({ isAuthenticated: false });
+    }
+});
+
 router.get('/store/:storeName/checkout', checkAuthenticated, async (req, res) => {
+    const { checkoutController } = await import(`../controller/checkout-controller.mjs`);
     checkoutController(req, res, { isHidden: true });
 });
 
@@ -87,3 +95,4 @@ router.use((req, res, next) => {
 });
 
 export default router;
+
