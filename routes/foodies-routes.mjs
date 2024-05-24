@@ -7,7 +7,7 @@ import { getMenuItemsWithPricesByStoreId } from '../model/model.mjs';
 import { cartController } from '../controller/cart-controller.mjs';
 import foodiesSession from '../app-setup/app-setup-session.mjs';
 import { doLogin, doRegister, doLogout, checkAuthenticated, setAuthState, renderLoginPage } from '../controller/login-controller.mjs';
-import { updateAddress } from '../controller/update-address-controller.mjs';
+import { updateAddress } from '../controller/user-profile-controller.mjs';
 
 
 const router = express.Router();
