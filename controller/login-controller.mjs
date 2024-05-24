@@ -10,7 +10,7 @@ export let doRegister = async function (req, res) {
         if (registrationResult.message) {
             return res.json({ success: true, message: registrationResult.message });
         } else {
-            return res.json({ success: false});
+            return res.json({ success: false });
         }
     } catch (error) {
         console.error('Registration error: ' + error);
@@ -19,33 +19,40 @@ export let doRegister = async function (req, res) {
 }
 
 export let doLogin = async function (req, res) {
+    console.log('Login attempt:', req.body);
     try {
         const { email, password } = req.body;
         const user = await getUserByEmail(email);
+        console.log('User found:', user);
 
         if (!user || !user.password) {
             return res.json({ success: false, message: 'User not found' });
+        }
+
+        const match = await bcrypt.compare(password, user.password);
+        console.log('Password match:', match);
+
+        if (match) {
+            req.session.isAuthenticated = true;
+            req.session.user = {
+                email: user.email,
+                fname: user.fname,
+                lname: user.lname,
+                address: user.address,
+                phone_number: user.phone_number
+            };
+            await req.session.save();
+            console.log('Session saved:', req.session);
+            return res.json({ success: true });
         } else {
-            const match = await bcrypt.compare(password, user.password);
-            if (match) {
-                req.session.isAuthenticated = true;
-                req.session.user = {
-                    email: user.email,
-                    fname: user.fname,
-                    lname: user.lname,
-                    address: user.address,
-                    phone_number: user.phone_number
-                };
-                return res.json({ success: true });
-            } else {
-                return res.json({ success: false, message: 'Incorrect password' });
-            }
+            return res.json({ success: false, message: 'Incorrect password' });
         }
     } catch (error) {
-        console.error('login error: ' + error);
+        console.error('Login error:', error);
         return res.json({ success: false, message: 'Error during login' });
     }
-}
+};
+
 
 export let doLogout = (req, res) => {
     req.session.destroy();

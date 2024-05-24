@@ -9,11 +9,7 @@ import foodiesSession from '../app-setup/app-setup-session.mjs';
 import { doLogin, doRegister, doLogout, checkAuthenticated, setAuthState, renderLoginPage } from '../controller/login-controller.mjs';
 import { updateAddress } from '../controller/user-profile-controller.mjs';
 
-
 const router = express.Router();
-
-router.use(foodiesSession);
-
 
 router.use(foodiesSession);
 
@@ -22,17 +18,32 @@ router.use(setAuthState);
 
 router.post('/login', doLogin);
 router.post('/signup', doRegister);
-router.get('/logout', doLogout);
 router.get('/login', renderLoginPage);
+router.get('/logout', doLogout);
 
+// Protect user-profile route
 router.get('/user-profile', checkAuthenticated, async (req, res) => {
     const { userProfileController } = await import(`../controller/user-profile-controller.mjs`);
     userProfileController(req, res, { isHidden: true });
 });
 
-router.route('/').get((req, res) => { 
-    res.redirect('/home') 
+router.post('/user-profile', checkAuthenticated, async (req, res) => {
+    const { updateUserInfo } = await import(`../controller/user-profile-controller.mjs`);
+    updateUserInfo(req, res);
 });
+
+router.post('/user-profile/change-password', checkAuthenticated, async (req, res) => {
+    const { changeUserPassword } = await import(`../controller/user-profile-controller.mjs`);
+    changeUserPassword(req, res);
+});
+
+router.get('/store/:storeName/cart-modal', cartController);
+router.get('/store/:storeName/checkout', async (req, res) => {
+    const { checkoutController } = await import(`../controller/checkout-controller.mjs`);
+    checkoutController(req, res, { isHidden: true });
+});
+
+router.post('/update-address', checkAuthenticated, updateAddress);
 
 router.get('/home', async (req, res) => {
     const { homeController } = await import(`../controller/home-controller.mjs`);
@@ -61,32 +72,15 @@ router.get('/api/menu-items/:storeId', async (req, res) => {
 });
 
 router.get('/api/store-info/:storeName', getStoreInfo);
-
 router.get('/api/tabs/:storeId', getTabsByCategory);
-
-router.post('/user-profile', async (req, res) => {
-    const { updateUserInfo } = await import(`../controller/user-profile-controller.mjs`);
-    updateUserInfo(req, res);
-});
-
-router.post('/user-profile/change-password', async (req, res) => {
-    const { changeUserPassword } = await import(`../controller/user-profile-controller.mjs`);
-    changeUserPassword(req, res);
-});
-
-router.get('/store/:storeName/cart-modal', cartController);
-
-router.get('/store/:storeName/checkout', async (req, res) => {
-    const { checkoutController } = await import(`../controller/checkout-controller.mjs`);
-    checkoutController(req, res, { isHidden: true });
-});
-
-router.post('/update-address', updateAddress);
 
 router.get('/about', footerPagesController);
 router.get('/privacy-policy', footerPagesController);
 router.get('/terms-of-use', footerPagesController);
 
+router.route('/').get((req, res) => { 
+    res.redirect('/home') 
+});
 
 router.use((req, res, next) => {
     console.log('Session:', req.session);
