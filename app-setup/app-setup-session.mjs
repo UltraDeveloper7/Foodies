@@ -12,6 +12,7 @@ const foodiesSession = session({
     saveUninitialized: true,
     cookie: {
         secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
+        httpOnly: true,
         maxAge: 1000 * 60 * 60 * 24 // 1 day
     }
 });
