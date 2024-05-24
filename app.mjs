@@ -21,6 +21,9 @@ app.use(express.json());
 // Session activation
 app.use(foodiesSession);
 
+// Middleware to set authentication state
+app.use(setAuthState);
+
 app.get('*', (req, res, next) => {
     res.locals.currentPath = req.path;
     next();
