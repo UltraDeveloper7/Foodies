@@ -69,6 +69,7 @@ export function setAuthState(req, res, next) {
     if (req.session.user) {
         res.locals.user = req.session.user;
     }
+    console.log('AuthState:', res.locals.isAuthenticated, res.locals.user);
     next();
 }
 

@@ -14,12 +14,21 @@ const router = express.Router();
 
 router.use(foodiesSession);
 
+
+router.use(foodiesSession);
+
 // Apply middleware to all routes
 router.use(setAuthState);
 
 router.post('/login', doLogin);
 router.post('/signup', doRegister);
 router.get('/logout', doLogout);
+router.get('/login', renderLoginPage);
+
+router.get('/user-profile', checkAuthenticated, async (req, res) => {
+    const { userProfileController } = await import(`../controller/user-profile-controller.mjs`);
+    userProfileController(req, res, { isHidden: true });
+});
 
 router.route('/').get((req, res) => { 
     res.redirect('/home') 
@@ -29,8 +38,6 @@ router.get('/home', async (req, res) => {
     const { homeController } = await import(`../controller/home-controller.mjs`);
     homeController(req, res, { isHidden: true });
 });
-
-router.get('/login', renderLoginPage);
 
 router.get('/search', async (req, res) => {
     const { searchController } = await import(`../controller/search-controller.mjs`);
@@ -56,12 +63,6 @@ router.get('/api/menu-items/:storeId', async (req, res) => {
 router.get('/api/store-info/:storeName', getStoreInfo);
 
 router.get('/api/tabs/:storeId', getTabsByCategory);
-
-// We use middleware to check if the user is logged in
-router.get('/user-profile', checkAuthenticated, async (req, res) => {
-    const { userProfileController } = await import(`../controller/user-profile-controller.mjs`);
-    userProfileController(req, res, { isHidden: true });
-});
 
 router.post('/user-profile', async (req, res) => {
     const { updateUserInfo } = await import(`../controller/user-profile-controller.mjs`);
