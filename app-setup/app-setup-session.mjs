@@ -1,3 +1,5 @@
+// app-setup-session.mjs
+
 import session from 'express-session';
 import { randomBytes } from 'crypto';
 

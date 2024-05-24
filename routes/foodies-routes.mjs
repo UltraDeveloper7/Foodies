@@ -86,4 +86,10 @@ router.get('/about', footerPagesController);
 router.get('/privacy-policy', footerPagesController);
 router.get('/terms-of-use', footerPagesController);
 
+
+router.use((req, res, next) => {
+    console.log('Session:', req.session);
+    next();
+});
+
 export default router;
