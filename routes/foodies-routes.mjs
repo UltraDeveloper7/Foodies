@@ -13,9 +13,6 @@ const router = express.Router();
 
 router.use(foodiesSession);
 
-// Apply middleware to all routes
-router.use(setAuthState);
-
 router.post('/login', doLogin);
 router.post('/signup', doRegister);
 router.get('/login', renderLoginPage);
