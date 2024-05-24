@@ -9,7 +9,7 @@ const secretKey = process.env.SESSION_SECRET || randomBytes(64).toString('hex');
 const foodiesSession = session({
     secret: secretKey,
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: {
         secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
         httpOnly: true,

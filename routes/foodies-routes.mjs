@@ -5,13 +5,10 @@ import { footerPagesController } from '../controller/footer-pages-controller.mjs
 import { getStoreInfo, getTabsByCategory } from '../controller/store-controller.mjs';
 import { getMenuItemsWithPricesByStoreId } from '../model/model.mjs';
 import { cartController } from '../controller/cart-controller.mjs';
-import foodiesSession from '../app-setup/app-setup-session.mjs';
-import { doLogin, doRegister, doLogout, checkAuthenticated, setAuthState, renderLoginPage } from '../controller/login-controller.mjs';
+import { doLogin, doRegister, doLogout, checkAuthenticated, renderLoginPage } from '../controller/login-controller.mjs';
 import { updateAddress, userProfileController, updateUserInfo, changeUserPassword } from '../controller/user-profile-controller.mjs';
 
 const router = express.Router();
-
-router.use(foodiesSession);
 
 router.post('/login', doLogin);
 router.post('/signup', doRegister);
@@ -22,7 +19,7 @@ router.get('/session-info', (req, res) => {
     if (req.session.isAuthenticated) {
         res.json({
             isAuthenticated: true,
-            user: req.session.user // Assuming user info is stored in session
+            user: req.session.user 
         });
     } else {
         res.json({ isAuthenticated: false });
@@ -96,11 +93,6 @@ router.get('/terms-of-use', footerPagesController);
 
 router.route('/').get((req, res) => { 
     res.redirect('/home');
-});
-
-router.use((req, res, next) => {
-    console.log('Session:', req.session);
-    next();
 });
 
 export default router;
