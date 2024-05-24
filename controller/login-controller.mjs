@@ -1,6 +1,6 @@
 // controller/login-controller.mjs
 
-// import bcrypt from 'bcrypt';
+import bcrypt from 'bcrypt';
 import { getUserByEmail, registerUser } from '../model/model.mjs';
 
 export let doRegister = async function (req, res) {
@@ -26,8 +26,8 @@ export let doLogin = async function (req, res) {
         if (!user || !user.password) {
             return res.json({ success: false, message: 'User not found' });
         } else {
-            // const match = await bcrypt.compare(password, user.password);
-            if (password === user.password) {
+            const match = await bcrypt.compare(password, user.password);
+            if (match) {
                 req.session.isAuthenticated = true;
                 req.session.user = {
                     email: user.email,

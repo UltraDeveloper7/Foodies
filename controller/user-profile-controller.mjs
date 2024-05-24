@@ -1,6 +1,6 @@
 // controller/user-profile.controller.mjs
 
-// import bcrypt from 'bcrypt';
+import bcrypt from 'bcrypt';
 import { getUserByEmail, updateUser, updateUserPassword, updateUserAddress } from '../model/model.mjs';
 
 export async function userProfileController(req, res, options = {}) {
@@ -50,13 +50,13 @@ export async function changeUserPassword(req, res) {
             return res.status(404).send('User not found');
         }
 
-        // const match = await bcrypt.compare(oldPassword, user.password);
-        if (false) {
+        const match = await bcrypt.compare(oldPassword, user.password);
+        if (!match) {
             return res.status(400).send('Incorrect current password');
         }
 
-        // const hashedPassword = await bcrypt.hash(newPassword, 10);
-        // await updateUserPassword(email, hashedPassword);
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+        await updateUserPassword(email, hashedPassword);
 
         res.status(200).send('Password updated successfully!');
     } catch (error) {
