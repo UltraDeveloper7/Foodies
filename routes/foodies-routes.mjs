@@ -7,7 +7,8 @@ import { getMenuItemsWithPricesByStoreId } from '../model/model.mjs';
 import { cartController } from '../controller/cart-controller.mjs';
 import foodiesSession from '../app-setup/app-setup-session.mjs';
 import { doLogin, doRegister, doLogout, checkAuthenticated, setAuthState, renderLoginPage } from '../controller/login-controller.mjs';
-import { updateAddress } from '../controller/user-profile-controller.mjs';
+import { updateAddress, userProfileController, updateUserInfo, changeUserPassword } from '../controller/user-profile-controller.mjs';
+import { checkoutController } from '../controller/checkout-controller.mjs';
 
 const router = express.Router();
 
@@ -23,27 +24,25 @@ router.get('/logout', doLogout);
 
 // Protect user-profile route
 router.get('/user-profile', checkAuthenticated, async (req, res) => {
-    const { userProfileController } = await import(`../controller/user-profile-controller.mjs`);
     userProfileController(req, res, { isHidden: true });
 });
 
 router.post('/user-profile', checkAuthenticated, async (req, res) => {
-    const { updateUserInfo } = await import(`../controller/user-profile-controller.mjs`);
     updateUserInfo(req, res);
 });
 
 router.post('/user-profile/change-password', checkAuthenticated, async (req, res) => {
-    const { changeUserPassword } = await import(`../controller/user-profile-controller.mjs`);
     changeUserPassword(req, res);
 });
 
-router.get('/store/:storeName/cart-modal', cartController);
-router.get('/store/:storeName/checkout', async (req, res) => {
-    const { checkoutController } = await import(`../controller/checkout-controller.mjs`);
+// Protect checkout route
+router.get('/store/:storeName/checkout', checkAuthenticated, async (req, res) => {
     checkoutController(req, res, { isHidden: true });
 });
 
 router.post('/update-address', checkAuthenticated, updateAddress);
+
+router.get('/store/:storeName/cart-modal', cartController);
 
 router.get('/home', async (req, res) => {
     const { homeController } = await import(`../controller/home-controller.mjs`);
@@ -79,7 +78,7 @@ router.get('/privacy-policy', footerPagesController);
 router.get('/terms-of-use', footerPagesController);
 
 router.route('/').get((req, res) => { 
-    res.redirect('/home') 
+    res.redirect('/home');
 });
 
 router.use((req, res, next) => {

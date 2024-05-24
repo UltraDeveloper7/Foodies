@@ -53,7 +53,6 @@ export let doLogin = async function (req, res) {
     }
 };
 
-
 export let doLogout = (req, res) => {
     req.session.destroy();
     res.redirect('/');
@@ -63,11 +62,7 @@ export let checkAuthenticated = function (req, res, next) {
     if (req.session.isAuthenticated) {
         next();
     } else {
-        if (req.originalUrl === "/login" || req.originalUrl === "/signup") {
-            next();
-        } else {
-            res.redirect('/login');
-        }
+        res.redirect('/login');
     }
 }
 
