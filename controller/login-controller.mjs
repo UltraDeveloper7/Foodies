@@ -1,8 +1,9 @@
 // controller/login-controller.mjs
 
+// controller/login-controller.mjs
+
 import bcrypt from 'bcryptjs';
 import { getUserByEmail, registerUser } from '../model/model.mjs';
-
 
 export let doRegister = async function (req, res) {
     try {
@@ -42,9 +43,14 @@ export let doLogin = async function (req, res) {
                 address: user.address,
                 phone_number: user.phone_number
             };
-            await req.session.save();
-            console.log('Session saved:', req.session);
-            return res.json({ success: true });
+            await req.session.save((err) => {
+                if (err) {
+                    console.error('Session save error:', err);
+                    return res.json({ success: false, message: 'Error during login' });
+                }
+                console.log('Session saved:', req.session);
+                return res.json({ success: true });
+            });
         } else {
             return res.json({ success: false, message: 'Incorrect password' });
         }
@@ -62,15 +68,15 @@ export let doLogout = (req, res) => {
 export function checkAuthenticated(req, res, next) {
     if (req.session.isAuthenticated) {
         return next();
+    } else {
+        res.status(401).send('Unauthorized');
     }
 }
 
 export function setAuthState(req, res, next) {
     console.log('Setting auth state:', req.session);
     res.locals.isAuthenticated = req.session.isAuthenticated || false;
-    if (req.session.user) {
-        res.locals.user = req.session.user;
-    }
+    res.locals.user = req.session.user || null;
     console.log('AuthState:', res.locals.isAuthenticated, res.locals.user);
     next();
 }
