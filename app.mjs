@@ -7,6 +7,8 @@ import routes from './routes/foodies-routes.mjs';
 import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 import foodiesSession from './app-setup/app-setup-session.mjs';
+import { setAuthState } from './controller/login-controller.mjs';
+
 
 // Load environment variables only if not in production
 if (process.env.NODE_ENV !== 'production') {
