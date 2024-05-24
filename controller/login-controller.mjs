@@ -1,6 +1,6 @@
 // controller/login-controller.mjs
 
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import { getUserByEmail, registerUser } from '../model/model.mjs';
 
 export let doRegister = async function (req, res) {

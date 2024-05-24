@@ -2,7 +2,7 @@
 
 // Importing the Better SQLite library
 import db from 'better-sqlite3';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 
 // Creating a new SQLite database connection
 const sql = new db('model/db/foodies.sqlite', { fileMustExist: true });
