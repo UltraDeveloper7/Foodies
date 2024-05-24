@@ -4,7 +4,7 @@
   "description": "A food delivery app",
   "main": "start.mjs",
   "scripts": {
-    "postinstall": "npm rebuild bcrypt --build-from-source",
+    "postinstall": "npm rebuild better-sqlite3 --build-from-source",
     "clean": "rm -rf node_modules",
     "reinstall": "npm run clean && npm install",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -26,7 +26,7 @@
     "bcrypt": "^5.0.1"
   },
   "engines": {
-    "node": ">=14.0.0",
+    "node": "14.x",
     "npm": "6.x"
   }
 }
