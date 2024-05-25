@@ -1,7 +1,5 @@
 // controller/login-controller.mjs
 
-// controller/login-controller.mjs
-
 import bcrypt from 'bcryptjs';
 import { getUserByEmail, registerUser } from '../model/model.mjs';
 
@@ -43,7 +41,7 @@ export let doLogin = async function (req, res) {
                 address: user.address,
                 phone_number: user.phone_number
             };
-            await req.session.save((err) => {
+            req.session.save((err) => {
                 if (err) {
                     console.error('Session save error:', err);
                     return res.json({ success: false, message: 'Error during login' });
@@ -61,8 +59,13 @@ export let doLogin = async function (req, res) {
 };
 
 export let doLogout = (req, res) => {
-    req.session.destroy();
-    res.redirect('/');
+    req.session.destroy((err) => {
+        if (err) {
+            console.error('Logout error:', err);
+            return res.status(500).send('Error during logout');
+        }
+        res.redirect('/');
+    });
 }
 
 export function checkAuthenticated(req, res, next) {
