@@ -15,15 +15,6 @@ router.post('/signup', doRegister);
 router.get('/login', renderLoginPage);
 router.get('/logout', doLogout);
 
-router.get('/session-info', (req, res) => {
-    console.log('Session Info:', req.session);
-    res.json({
-        session: req.session,
-        isAuthenticated: req.session.isAuthenticated || false,
-        user: req.session.user || null
-    });
-});
-
 // Protect user-profile route
 router.get('/user-profile', checkAuthenticated, async (req, res) => {
     userProfileController(req, res, { isHidden: true });
@@ -59,7 +50,7 @@ router.get('/store/:storeName', async (req, res) => {
 router.get('/api/menu-items/:storeId', async (req, res) => {
     try {
         const { storeId } = req.params;
-        const menuItemsWithPrices = await getMenuItemsWithPricesByStoreId(storeId);
+        const menuItemsWithPrices = getMenuItemsWithPricesByStoreId(storeId);
         res.json(menuItemsWithPrices);
     } catch (error) {
         console.error('Error fetching menu items:', error);
