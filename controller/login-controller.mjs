@@ -3,12 +3,42 @@
 import bcrypt from 'bcryptjs';
 import { getUserByEmail, registerUser } from '../model/model.mjs';
 
+// Helper function to save session data
+const saveSession = (req, res, user, message) => {
+    req.session.regenerate((err) => {
+        if (err) {
+            console.error('Session regeneration error:', err);
+            return res.json({ success: false, message: 'Error during registration' });
+        }
+
+        req.session.isAuthenticated = true;
+        req.session.user = {
+            email: user.email,
+            fname: user.fname,
+            lname: user.lname,
+            address: user.address,
+            phone_number: user.phone_number
+        };
+
+        req.session.save((err) => {
+            if (err) {
+                console.error('Session save error:', err);
+                return res.json({ success: false, message: 'Error during registration' });
+            }
+            console.log('Session saved:', req.session);
+            return res.json({ success: true, message });
+        });
+    });
+};
+
 export let doRegister = async function (req, res) {
     try {
         const { email, password, fname, lname, address, phone_number } = req.body;
         const registrationResult = await registerUser(email, password, fname, lname, address, phone_number);
         if (registrationResult.message) {
-            return res.json({ success: true, message: registrationResult.message });
+            // Automatically log in the user after successful registration
+            const user = { email, fname, lname, address, phone_number };
+            saveSession(req, res, user, registrationResult.message);
         } else {
             return res.json({ success: false });
         }
@@ -16,7 +46,7 @@ export let doRegister = async function (req, res) {
         console.error('Registration error: ' + error);
         return res.json({ success: false, message: error.message });
     }
-}
+};
 
 export let doLogin = async function (req, res) {
     console.log('Login attempt:', req.body);
@@ -33,30 +63,7 @@ export let doLogin = async function (req, res) {
         console.log('Password match:', match);
 
         if (match) {
-            req.session.regenerate((err) => {
-                if (err) {
-                    console.error('Session regeneration error:', err);
-                    return res.json({ success: false, message: 'Error during login' });
-                }
-
-                req.session.isAuthenticated = true;
-                req.session.user = {
-                    email: user.email,
-                    fname: user.fname,
-                    lname: user.lname,
-                    address: user.address,
-                    phone_number: user.phone_number
-                };
-
-                req.session.save((err) => {
-                    if (err) {
-                        console.error('Session save error:', err);
-                        return res.json({ success: false, message: 'Error during login' });
-                    }
-                    console.log('Session saved:', req.session);
-                    return res.json({ success: true });
-                });
-            });
+            saveSession(req, res, user, 'Login successful');
         } else {
             return res.json({ success: false, message: 'Incorrect password' });
         }
@@ -74,7 +81,7 @@ export let doLogout = (req, res) => {
         }
         res.redirect('/');
     });
-}
+};
 
 export function checkAuthenticated(req, res, next) {
     if (req.session.isAuthenticated) {
@@ -98,7 +105,6 @@ export function setAuthState(req, res, next) {
     console.log('AuthState:', res.locals.isAuthenticated, res.locals.user);
     next();
 }
-
 
 export async function renderLoginPage(req, res) {
     try {
