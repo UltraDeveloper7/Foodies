@@ -4,6 +4,13 @@ import session from 'express-session';
 import { randomBytes } from 'crypto';
 import connectSqlite3 from 'connect-sqlite3';
 import path from 'path';
+import dotenv from 'dotenv';
+
+// Load environment variables only if not in production
+if (process.env.NODE_ENV !== 'production') {
+   console.log('loading .env');
+   dotenv.config();
+}
 
 // Generate a strong secret key if not provided in the environment
 const secretKey = process.env.SESSION_SECRET || randomBytes(64).toString('hex');
@@ -22,7 +29,7 @@ const foodiesSession = session({
     }),
     cookie: {
         secure: process.env.NODE_ENV === 'production',
-        httpOnly: false,
+        httpOnly: true,
         maxAge: 1000 * 60 * 60 * 24 // 1 day
     }
 });
