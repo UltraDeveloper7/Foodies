@@ -43,16 +43,8 @@ export async function homeController(req, res, options = {}) {
             user: req.session.user
         };
 
-        res.render('home', {            
-            pageTitle: "The best online delivery application!",
-            foodCategories,
-            partnerStores,
-            renderCss: [
-                '/css/home-styles.css'
-            ],
-            isHidden: options.isHidden || false,
-            isAuthenticated: req.session.isAuthenticated ,
-            user: req.session.user});
+        console.log(data);
+        res.render('home', data);
 
     } catch (error) {
         console.error('Error fetching store data:', error);
