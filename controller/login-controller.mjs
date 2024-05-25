@@ -1,5 +1,3 @@
-// controller/login-controller.mjs
-
 import bcrypt from 'bcryptjs';
 import { getUserByEmail, registerUser } from '../model/model.mjs';
 
@@ -39,7 +37,7 @@ export let doRegister = async function (req, res) {
             return res.json({ success: false });
         }
     } catch (error) {
-        console.error('Registration error: ' + error);
+        console.error('Registration error:', error);
         return res.json({ success: false, message: error.message });
     }
 };
@@ -100,8 +98,6 @@ export function checkAuthenticated(req, res, next) {
 }
 
 export function setAuthState(req, res, next) {
-    console.log('Session ID:', req.sessionID);
-    console.log('Session Data:', req.session);
 
     if (req.session && req.session.isAuthenticated && req.session.user) {
         res.locals.isAuthenticated = true;
@@ -110,7 +106,6 @@ export function setAuthState(req, res, next) {
         res.locals.isAuthenticated = false;
         res.locals.user = null;
     }
-    console.log('AuthState:', res.locals.isAuthenticated, res.locals.user);
     next();
 }
 
@@ -126,4 +121,4 @@ export async function renderLoginPage(req, res) {
         console.error('Error rendering login page:', error);
         res.status(500).send('Internal Server Error');
     }
-};
+}

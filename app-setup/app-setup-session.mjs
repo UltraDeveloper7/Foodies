@@ -9,7 +9,6 @@ import dotenv from 'dotenv';
 
 // Load environment variables only if not in production
 if (process.env.NODE_ENV !== 'production') {
-   console.log('loading .env');
    dotenv.config();
 }
 
@@ -33,7 +32,7 @@ const foodiesSession = session({
     saveUninitialized: false,
     store: new SQLiteStore({
         db: 'session.sqlite',
-        dir: sessionsDir // Use the directory that was ensured to exist
+        dir: sessionsDir 
     }),
     cookie: {
         secure: process.env.NODE_ENV === 'production',
