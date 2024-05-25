@@ -86,10 +86,11 @@ export function checkAuthenticated(req, res, next) {
 
 export function setAuthState(req, res, next) {
     console.log('setAuthState - Session:', req.session);
-    
+
     if (req.session) {
         console.log('Session ID:', req.sessionID);
         console.log('Session Cookie:', req.session.cookie);
+        console.log('Session Data:', req.session);
     } else {
         console.log('No session found');
     }
@@ -101,7 +102,6 @@ export function setAuthState(req, res, next) {
         res.locals.isAuthenticated = false;
         res.locals.user = null;
     }
-    
     console.log('AuthState:', res.locals.isAuthenticated, res.locals.user);
     next();
 }
