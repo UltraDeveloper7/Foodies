@@ -9,7 +9,6 @@ import bodyParser from 'body-parser';
 import foodiesSession from './app-setup/app-setup-session.mjs';
 import { setAuthState } from './controller/login-controller.mjs';
 
-
 // Load environment variables only if not in production
 if (process.env.NODE_ENV !== 'production') {
     dotenv.config();
@@ -17,14 +16,20 @@ if (process.env.NODE_ENV !== 'production') {
 
 const app = express();
 
-// Use JSON middleware
-app.use(express.json());
-
 // Session activation
 app.use(foodiesSession);
 
 // Middleware to set authentication state
 app.use(setAuthState);
+
+// Use JSON middleware
+app.use(express.json());
+
+app.use(express.urlencoded({ extended: false }));
+
+app.use(express.static('public'));
+
+app.use(bodyParser.json());
 
 app.get('*', (req, res, next) => {
     res.locals.currentPath = req.path;
@@ -41,11 +46,6 @@ app.engine('hbs', engine({
 app.set('view engine', 'hbs');
 app.set('views', path.join(path.resolve(), 'views'));
 
-// Middleware
-app.use(express.static('public'));
-app.use(bodyParser.json()); // Parse JSON bodies
-app.use(express.urlencoded({ extended: false }));
-
 // Routes
 app.use('/', routes);
 
@@ -54,7 +54,5 @@ app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send('Something went wrong!');
 });
-
-
 
 export { app as foodies };

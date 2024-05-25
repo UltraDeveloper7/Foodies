@@ -78,8 +78,13 @@ export function checkAuthenticated(req, res, next) {
 
 export function setAuthState(req, res, next) {
     console.log('Setting auth state:', req.session);
-    res.locals.isAuthenticated = req.session.isAuthenticated || false;
-    res.locals.user = req.session.user || null;
+    if (req.session.isAuthenticated && req.session.user) {
+        res.locals.isAuthenticated = true;
+        res.locals.user = req.session.user;
+    } else {
+        res.locals.isAuthenticated = false;
+        res.locals.user = null;
+    }
     console.log('AuthState:', res.locals.isAuthenticated, res.locals.user);
     next();
 }

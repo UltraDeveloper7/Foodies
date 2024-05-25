@@ -163,6 +163,7 @@ document.addEventListener("DOMContentLoaded", function () {
             signInMessage.innerText = "";
             const response = await fetch('/login', {
                 method: 'POST',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -210,6 +211,7 @@ document.addEventListener("DOMContentLoaded", function () {
             signUpMessage.innerText = "";
             const response = await fetch('/signup', {
                 method: 'POST',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
                 },
