@@ -30,11 +30,6 @@ app.use(foodiesSession);
 // Middleware to set authentication state
 app.use(setAuthState);
 
-app.use((req, res, next) => {
-    console.log('Session data:', req.session);
-    next();
-});
-
 app.get('*', (req, res, next) => {
     res.locals.currentPath = req.path;
     next();
