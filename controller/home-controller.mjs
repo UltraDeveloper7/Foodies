@@ -41,8 +41,9 @@ export async function homeController(req, res, options = {}) {
             isHidden: options.isHidden || false,
             isAuthenticated: req.session.isAuthenticated  
         };
-
+        
         res.render('home', data);
+
     } catch (error) {
         console.error('Error fetching store data:', error);
         res.status(500).send('Internal Server Error');
