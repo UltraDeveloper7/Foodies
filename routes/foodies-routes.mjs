@@ -15,7 +15,7 @@ router.use(setAuthState);
 
 router.post('/login', doLogin);
 router.post('/signup', doRegister);
-router.get('/login', renderLoginPage);
+router.get('/login', doLogin);
 router.get('/logout', doLogout);
 
 // Protect user-profile route
