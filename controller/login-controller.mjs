@@ -34,6 +34,11 @@ const saveSession = (req, res, user, message) => {
 export let doRegister = async function (req, res) {
     try {
         const { email, password, fname, lname, address, phone_number } = req.body;
+        const existingUser = await getUserByEmail(email);
+        if (existingUser) {
+            return res.json({ success: false, message: 'A user with this email already exists' });
+        }
+
         const registrationResult = await registerUser(email, password, fname, lname, address, phone_number);
         if (registrationResult.message) {
             // Automatically log in the user after successful registration

@@ -27,6 +27,4 @@ const foodiesSession = session({
     }
 });
 
-console.log('Session store configured with path:', path.resolve('model/sessions/session.sqlite'));
-
 export default foodiesSession;
