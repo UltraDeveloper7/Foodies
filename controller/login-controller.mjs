@@ -78,7 +78,7 @@ export let doLogout = (req, res) => {
 
 export function checkAuthenticated(req, res, next) {
     if (req.session.isAuthenticated) {
-        return next();
+        next();
     } else {
         res.status(401).send('Unauthorized');
     }
@@ -98,8 +98,6 @@ export function setAuthState(req, res, next) {
     console.log('AuthState:', res.locals.isAuthenticated, res.locals.user);
     next();
 }
-
-
 
 
 export async function renderLoginPage(req, res) {

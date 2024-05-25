@@ -10,6 +10,9 @@ import { updateAddress, userProfileController, updateUserInfo, changeUserPasswor
 
 const router = express.Router();
 
+// Apply setAuthState middleware to all routes
+router.use(setAuthState);
+
 router.post('/login', doLogin);
 router.post('/signup', doRegister);
 router.get('/login', renderLoginPage);
