@@ -39,8 +39,8 @@ export async function homeController(req, res, options = {}) {
                 '/css/home-styles.css'
             ],
             isHidden: options.isHidden || false,
-            isAuthenticated: req.session.isAuthenticated ,
-            user: req.session.user
+            isAuthenticated: res.locals.isAuthenticated ,
+            user: res.locals.user
         };
 
         console.log(data);

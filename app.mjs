@@ -30,6 +30,11 @@ app.use(foodiesSession);
 // Middleware to set authentication state
 app.use(setAuthState);
 
+app.use((req, res, next) => {
+    console.log('Session data:', req.session);
+    next();
+});
+
 app.get('*', (req, res, next) => {
     res.locals.currentPath = req.path;
     next();
@@ -54,9 +59,6 @@ app.use((err, req, res, next) => {
     res.status(500).send('Something went wrong!');
 });
 
-app.use((req, res, next) => {
-    console.log('Session data:', req.session);
-    next();
-});
+
 
 export { app as foodies };
