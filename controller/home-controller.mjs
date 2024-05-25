@@ -39,9 +39,10 @@ export async function homeController(req, res, options = {}) {
                 '/css/home-styles.css'
             ],
             isHidden: options.isHidden || false,
-            isAuthenticated: req.session.isAuthenticated  
+            isAuthenticated: req.session.isAuthenticated ,
+            user: req.session.user
         };
-        
+
         res.render('home', data);
 
     } catch (error) {
