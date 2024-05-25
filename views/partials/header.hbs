@@ -14,9 +14,12 @@
                 <i class="fa-solid fa-location-arrow fa-2x"></i>
                 <span id="location-text">
                     {{#if isAuthenticated}}
-                        {{this.address}}
-                    {{else}}
+
                         Location
+                        
+                    {{else}}
+                        {{user.address}}
+                        
                     {{/if}}
                         <i class="fa-solid fa-chevron-down"></i>
                 </span>
