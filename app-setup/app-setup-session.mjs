@@ -4,6 +4,7 @@ import session from 'express-session';
 import { randomBytes } from 'crypto';
 import connectSqlite3 from 'connect-sqlite3';
 import path from 'path';
+import fs from 'fs';
 import dotenv from 'dotenv';
 
 // Load environment variables only if not in production
@@ -15,6 +16,13 @@ if (process.env.NODE_ENV !== 'production') {
 // Generate a strong secret key if not provided in the environment
 const secretKey = process.env.SESSION_SECRET || randomBytes(64).toString('hex');
 
+// Ensure the sessions directory exists
+const sessionsDir = path.resolve('model/sessions');
+if (!fs.existsSync(sessionsDir)) {
+    fs.mkdirSync(sessionsDir, { recursive: true });
+    console.log('Sessions directory created:', sessionsDir);
+}
+
 // Initialize the SQLiteStore
 const SQLiteStore = connectSqlite3(session);
 
@@ -25,7 +33,7 @@ const foodiesSession = session({
     saveUninitialized: false,
     store: new SQLiteStore({
         db: 'session.sqlite',
-        dir: path.resolve('model/sessions') // Ensure this directory exists and is writable
+        dir: sessionsDir // Use the directory that was ensured to exist
     }),
     cookie: {
         secure: process.env.NODE_ENV === 'production',
