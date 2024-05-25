@@ -40,33 +40,19 @@ router.post('/user-profile/change-password', checkAuthenticated, async (req, res
     changeUserPassword(req, res);
 });
 
-// Protect checkout route and return JSON response for authentication check
-router.get('/store/:storeName/checkout-status', (req, res) => {
-    if (req.session.isAuthenticated) {
-        res.json({ isAuthenticated: true });
-    } else {
-        res.json({ isAuthenticated: false });
-    }
-});
-
-router.get('/store/:storeName/checkout', checkAuthenticated, async (req, res) => {
-    const { checkoutController } = await import(`../controller/checkout-controller.mjs`);
-    checkoutController(req, res, { isHidden: true });
-});
-
-router.post('/update-address', checkAuthenticated, updateAddress);
-
-router.get('/store/:storeName/cart-modal', cartController);
-
 router.get('/home', async (req, res) => {
     const { homeController } = await import(`../controller/home-controller.mjs`);
     homeController(req, res, { isHidden: true });
 });
 
+router.post('/update-address', checkAuthenticated, updateAddress);
+
 router.get('/search', async (req, res) => {
     const { searchController } = await import(`../controller/search-controller.mjs`);
     searchController(req, res, { isHidden: true });
 });
+
+router.get('/api/tabs/:storeId', getTabsByCategory);
 
 router.get('/store/:storeName', async (req, res) => {
     const { storeController } = await import(`../controller/store-controller.mjs`);
@@ -84,8 +70,24 @@ router.get('/api/menu-items/:storeId', async (req, res) => {
     }
 });
 
+
 router.get('/api/store-info/:storeName', getStoreInfo);
-router.get('/api/tabs/:storeId', getTabsByCategory);
+
+router.get('/store/:storeName/cart-modal', cartController);
+
+router.get('/store/:storeName/checkout', checkAuthenticated, async (req, res) => {
+    const { checkoutController } = await import(`../controller/checkout-controller.mjs`);
+    checkoutController(req, res, { isHidden: true });
+});
+
+// Protect checkout route and return JSON response for authentication check
+router.get('/store/:storeName/checkout-status', (req, res) => {
+    if (req.session.isAuthenticated) {
+        res.json({ isAuthenticated: true });
+    } else {
+        res.json({ isAuthenticated: false });
+    }
+});
 
 router.get('/about', footerPagesController);
 router.get('/privacy-policy', footerPagesController);
