@@ -33,21 +33,29 @@ export let doLogin = async function (req, res) {
         console.log('Password match:', match);
 
         if (match) {
-            req.session.isAuthenticated = true;
-            req.session.user = {
-                email: user.email,
-                fname: user.fname,
-                lname: user.lname,
-                address: user.address,
-                phone_number: user.phone_number
-            };
-            req.session.save((err) => {
+            req.session.regenerate((err) => {
                 if (err) {
-                    console.error('Session save error:', err);
+                    console.error('Session regeneration error:', err);
                     return res.json({ success: false, message: 'Error during login' });
                 }
-                console.log('Session saved:', req.session);
-                return res.json({ success: true });
+
+                req.session.isAuthenticated = true;
+                req.session.user = {
+                    email: user.email,
+                    fname: user.fname,
+                    lname: user.lname,
+                    address: user.address,
+                    phone_number: user.phone_number
+                };
+
+                req.session.save((err) => {
+                    if (err) {
+                        console.error('Session save error:', err);
+                        return res.json({ success: false, message: 'Error during login' });
+                    }
+                    console.log('Session saved:', req.session);
+                    return res.json({ success: true });
+                });
             });
         } else {
             return res.json({ success: false, message: 'Incorrect password' });
@@ -77,6 +85,7 @@ export function checkAuthenticated(req, res, next) {
 }
 
 export function setAuthState(req, res, next) {
+    console.log('setAuthState - Session:', req.session);
     if (req.session && req.session.isAuthenticated && req.session.user) {
         res.locals.isAuthenticated = true;
         res.locals.user = req.session.user;
@@ -87,6 +96,7 @@ export function setAuthState(req, res, next) {
     console.log('AuthState:', res.locals.isAuthenticated, res.locals.user);
     next();
 }
+
 
 export async function renderLoginPage(req, res) {
     try {
