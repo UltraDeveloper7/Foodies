@@ -63,7 +63,42 @@ export let doLogin = async function (req, res) {
         console.log('Password match:', match);
 
         if (match) {
-            saveSession(req, res, user, 'Login successful');
+            if (!req.session.isAuthenticated) {
+                req.session.regenerate((err) => {
+                    if (err) {
+                        console.error('Session regeneration error:', err);
+                        return res.json({ success: false, message: 'Error during login' });
+                    }
+
+                    req.session.isAuthenticated = true;
+                    req.session.user = {
+                        email: user.email,
+                        fname: user.fname,
+                        lname: user.lname,
+                        address: user.address,
+                        phone_number: user.phone_number
+                    };
+
+                    req.session.save((err) => {
+                        if (err) {
+                            console.error('Session save error:', err);
+                            return res.json({ success: false, message: 'Error during login' });
+                        }
+                        console.log('Session saved:', req.session);
+                        return res.json({ success: true });
+                    });
+                });
+            } else {
+                req.session.user = {
+                    email: user.email,
+                    fname: user.fname,
+                    lname: user.lname,
+                    address: user.address,
+                    phone_number: user.phone_number
+                };
+                console.log('Session retrieved:', req.session);
+                return res.json({ success: true });
+            }
         } else {
             return res.json({ success: false, message: 'Incorrect password' });
         }

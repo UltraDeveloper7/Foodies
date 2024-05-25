@@ -3,6 +3,7 @@
 import session from 'express-session';
 import { randomBytes } from 'crypto';
 import connectSqlite3 from 'connect-sqlite3';
+import path from 'path';
 
 // Generate a strong secret key if not provided in the environment
 const secretKey = process.env.SESSION_SECRET || randomBytes(64).toString('hex');
@@ -17,7 +18,7 @@ const foodiesSession = session({
     saveUninitialized: false,
     store: new SQLiteStore({
         db: 'session.sqlite',
-        dir: './model/sessions'
+        dir: path.resolve('model/sessions') // Ensure this directory exists and is writable
     }),
     cookie: {
         secure: process.env.NODE_ENV === 'production',
@@ -25,5 +26,7 @@ const foodiesSession = session({
         maxAge: 1000 * 60 * 60 * 24 // 1 day
     }
 });
+
+console.log('Session store configured with path:', path.resolve('model/sessions/session.sqlite'));
 
 export default foodiesSession;
