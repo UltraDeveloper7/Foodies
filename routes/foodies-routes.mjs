@@ -5,7 +5,7 @@ import { footerPagesController } from '../controller/footer-pages-controller.mjs
 import { getStoreInfo, getTabsByCategory } from '../controller/store-controller.mjs';
 import { getMenuItemsWithPricesByStoreId } from '../model/model.mjs';
 import { cartController } from '../controller/cart-controller.mjs';
-import { doLogin, doRegister, doLogout, checkAuthenticated, renderLoginPage } from '../controller/login-controller.mjs';
+import { doLogin, doRegister, doLogout, checkAuthenticated, setAuthState, renderLoginPage } from '../controller/login-controller.mjs';
 import { updateAddress, userProfileController, updateUserInfo, changeUserPassword } from '../controller/user-profile-controller.mjs';
 
 const router = express.Router();

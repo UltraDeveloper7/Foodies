@@ -2,13 +2,13 @@
 
 import session from 'express-session';
 import { randomBytes } from 'crypto';
-import SQLiteStore from 'connect-sqlite3';
+import connectSqlite3 from 'connect-sqlite3';
 
 // Generate a strong secret key if not provided in the environment
 const secretKey = process.env.SESSION_SECRET || randomBytes(64).toString('hex');
 
 // Initialize the SQLiteStore
-const SQLiteStore = SQLiteStore(session);
+const SQLiteStore = connectSqlite3(session);
 
 // Configure the session middleware
 const foodiesSession = session({
