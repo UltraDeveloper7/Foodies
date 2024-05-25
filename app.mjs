@@ -16,20 +16,19 @@ if (process.env.NODE_ENV !== 'production') {
 
 const app = express();
 
+// Use JSON middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+// Serve static files
+app.use(express.static('public'));
+
 // Session activation
 app.use(foodiesSession);
 
 // Middleware to set authentication state
 app.use(setAuthState);
-
-// Use JSON middleware
-app.use(express.json());
-
-app.use(express.urlencoded({ extended: false }));
-
-app.use(express.static('public'));
-
-app.use(bodyParser.json());
 
 app.get('*', (req, res, next) => {
     res.locals.currentPath = req.path;
@@ -55,11 +54,9 @@ app.use((err, req, res, next) => {
     res.status(500).send('Something went wrong!');
 });
 
-
 app.use((req, res, next) => {
     console.log('Session data:', req.session);
     next();
 });
-
 
 export { app as foodies };
