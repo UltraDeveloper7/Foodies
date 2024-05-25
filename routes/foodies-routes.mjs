@@ -16,16 +16,13 @@ router.get('/login', renderLoginPage);
 router.get('/logout', doLogout);
 
 router.get('/session-info', (req, res) => {
-    if (req.session.isAuthenticated) {
-        res.json({
-            isAuthenticated: true,
-            user: req.session.user 
-        });
-    } else {
-        res.json({ isAuthenticated: false });
-    }
+    console.log('Session Info:', req.session);
+    res.json({
+        session: req.session,
+        isAuthenticated: req.session.isAuthenticated || false,
+        user: req.session.user || null
+    });
 });
-
 
 // Protect user-profile route
 router.get('/user-profile', checkAuthenticated, async (req, res) => {
