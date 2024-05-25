@@ -39,7 +39,7 @@ export async function homeController(req, res, options = {}) {
                 '/css/home-styles.css'
             ],
             isHidden: options.isHidden || false,
-            isAuthenticated: req.session.isAuthenticated || false // Add isAuthenticated status
+            isAuthenticated: req.session.isAuthenticated  
         };
 
         res.render('home', data);
