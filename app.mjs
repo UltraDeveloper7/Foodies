@@ -55,4 +55,11 @@ app.use((err, req, res, next) => {
     res.status(500).send('Something went wrong!');
 });
 
+
+app.use((req, res, next) => {
+    console.log('Session data:', req.session);
+    next();
+});
+
+
 export { app as foodies };

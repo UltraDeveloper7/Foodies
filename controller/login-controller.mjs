@@ -54,7 +54,7 @@ export let doRegister = async function (req, res) {
 };
 
 export let doLogin = async function (req, res) {
-    console.log('Login attempt:', req.body);
+    // console.log('Login attempt:', req.body);
     try {
         const { email, password } = req.body;
         const user = await getUserByEmail(email);
@@ -65,7 +65,7 @@ export let doLogin = async function (req, res) {
         }
 
         const match = await bcrypt.compare(password, user.password);
-        console.log('Password match:', match);
+        // console.log('Password match:', match);
 
         if (match) {
             req.session.isAuthenticated = true;
@@ -76,7 +76,7 @@ export let doLogin = async function (req, res) {
                 address: user.address,
                 phone_number: user.phone_number
             };
-            console.log('Session retrieved:', req.session);
+            // console.log('Session retrieved:', req.session);
             return res.json({ success: true });
         } else {
             return res.json({ success: false, message: 'Incorrect password' });
@@ -107,8 +107,8 @@ export function checkAuthenticated(req, res, next) {
 }
 
 export function setAuthState(req, res, next) {
-    console.log('setAuthState - Session ID:', req.sessionID);
-    console.log('setAuthState - Session:', req.session);
+    // console.log('setAuthState - Session ID:', req.sessionID);
+    // console.log('setAuthState - Session:', req.session);
 
     if (req.session && req.session.isAuthenticated && req.session.user) {
         res.locals.isAuthenticated = true;
@@ -117,7 +117,7 @@ export function setAuthState(req, res, next) {
         res.locals.isAuthenticated = false;
         res.locals.user = null;
     }
-    console.log('AuthState:', res.locals.isAuthenticated, res.locals.user);
+    // console.log('AuthState:', res.locals.isAuthenticated, res.locals.user);
     next();
 }
 
