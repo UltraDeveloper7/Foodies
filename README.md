@@ -19,6 +19,7 @@ This repository contains the source code for **Foodies**, an online food deliver
 - [Contact](#contact)
 - [Disclaimer](#disclaimer)
 - [Acknowledgements](#acknowledgements)
+- [Deployment](#deployment)
 
 ## Features
 - User authentication and session management
@@ -168,13 +169,9 @@ This application is a project created for educational purposes. The features and
 ## Acknowledgements
 Special thanks to all the contributors and open-source libraries that made this project possible.
 
+## Deployment
+The Foodies application is deployed on Heroku. You can access it at [https://efoodies-f3555c26d697.herokuapp.com/](https://efoodies-f3555c26d697.herokuapp.com/).
+
 ---
 
 Thank you for using Foodies! Happy ordering!
-
-
-
-
-
-
-
