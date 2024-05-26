@@ -201,4 +201,17 @@ export let insertOrderContent = (orderId, menuItemId, comment) => {
     }
 };
 
+export let insertPayment = (orderId, userEmail, amount, method) => {
+    try {
+        const stmt = sql.prepare(`
+            INSERT INTO payment (order_id, user_email, amount, method)
+            VALUES (?, ?, ?, ?)
+        `);
+        stmt.run(orderId, userEmail, amount, method);
+    } catch (error) {
+        throw error;
+    }
+};
+
+
 export default sql;

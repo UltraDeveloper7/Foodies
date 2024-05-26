@@ -63,23 +63,23 @@ router.get('/api/menu-items/:storeId', async (req, res) => {
     }
 });
 
-
 router.get('/api/store-info/:storeName', getStoreInfo);
 
 router.get('/store/:storeName/cart-modal', cartController);
 
-router.get('/store/:storeName/checkout', checkAuthenticated, async (req, res) => {
-    const { checkoutController } = await import(`../controller/checkout-controller.mjs`);
-    checkoutController(req, res, { isHidden: true });
-});
-
-// Protect checkout route and return JSON response for authentication check
+// Server-side route for checkout-status
 router.get('/store/:storeName/checkout-status', (req, res) => {
     if (req.session.isAuthenticated) {
         res.json({ isAuthenticated: true });
     } else {
-        res.json({ isAuthenticated: false });
+        res.status(401).json({ isAuthenticated: false });
     }
+});
+
+// Protect checkout route and return JSON response for authentication check
+router.get('/store/:storeName/checkout', checkAuthenticated, async (req, res) => {
+    const { checkoutController } = await import(`../controller/checkout-controller.mjs`);
+    checkoutController(req, res, { isHidden: true });
 });
 
 router.post('/submit-order', checkAuthenticated, submitOrder);

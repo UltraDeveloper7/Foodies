@@ -85,8 +85,11 @@ document.addEventListener('DOMContentLoaded', () => {
             storeId: window.storeId, // Retrieve the store ID dynamically
             deliveryAddress: window.userAddress, // Retrieve this from the user's profile or input
             tip: parseFloat(document.querySelector('input[name="tipAmount"]:checked').value) || 0,
-            price: parseFloat(localStorage.getItem('totalPrice')) - parseFloat(window.deliveryFee),
-            items: cartItems
+            orderPrice: parseFloat(localStorage.getItem('totalPrice')) - parseFloat(window.deliveryFee),
+            items: cartItems,
+            method: document.querySelector('#payment_method').value, // Retrieve this from the payment method radio buttons
+            paymentAmount: parseFloat(localStorage.getItem('totalPrice'))
+
         };
 
         modal.style.display = 'flex';

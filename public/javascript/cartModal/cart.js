@@ -1,10 +1,10 @@
 // public/javascript/cartModal/cart.js
 
 import { getProductDetails, closeModal } from '../storePage/modalManagement.js';
-import { openCartModal, extractStoreNameFromURL } from './cart-modal.js';
-
+import { openCartModal, closecartModal, extractStoreNameFromURL } from './cart-modal.js';
 
 document.addEventListener('DOMContentLoaded', () => {
+    const cartOverlay = document.getElementById('cartOverlay');
     const addToCartButton = document.querySelector('.modal-footer .btn');
 
     if (addToCartButton) {
@@ -24,7 +24,38 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         console.error('Add to Cart button not found.');
     }
+
+    cartOverlay.addEventListener('click', closecartModal);
+    window.addEventListener('popstate', function(event) {
+        if (!window.location.pathname.includes('/cart-modal')) {
+            closecartModal();
+        }
+    });
+
+    updateCartTotal(); // Initial call to set up the cart total button and its listener
 });
+
+async function checkAuthentication(storeName) {
+    try {
+        const response = await fetch(`/store/${storeName}/checkout-status`, {
+            method: 'GET',
+            credentials: 'include', // Ensure credentials are included in the request
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (response.status === 401) {
+            return false;
+        }
+
+        const result = await response.json();
+        return result.isAuthenticated;
+    } catch (error) {
+        console.error('Error checking authentication:', error);
+        return false;
+    }
+}
 
 function addProductToCart(productDetails) {
     const cartItemsContainer = document.getElementById('cartItemsContainerModal');
@@ -196,7 +227,7 @@ function removeCartItem(button) {
     updateCartTotal();
 }
 
-function updateCartTotal() {
+async function updateCartTotal() {
     const cartItemsContainer = document.getElementById('cartItemsContainerModal');
     const emptyCartMessage = document.querySelector('.cart-empty-modal');
     let totalButton = document.getElementById('cartTotalModal');
@@ -257,12 +288,21 @@ function updateCartTotal() {
         totalButton.textContent = `Total: ${total.toFixed(2)} €`;
         totalButton.style.display = 'block';
 
-        totalButton.addEventListener('click', function() {
+        totalButton.addEventListener('click', async function() {
+            closecartModal();
+            const storeName = extractStoreNameFromURL();
             if (total >= minimumOrderAmount) {
-                localStorage.setItem('cartItems', JSON.stringify(cartItems));
-                localStorage.setItem('totalPrice', total.toFixed(2));
-                const storeName = extractStoreNameFromURL();
-                window.location.href = `/store/${storeName}/checkout`;
+                const isAuthenticated = await checkAuthentication(storeName);
+
+                if (isAuthenticated) {
+                    window.location.href = `/store/${storeName}/checkout`;
+                } else {
+                    localStorage.setItem('intendedUrl', `/store/${storeName}/checkout`);
+                    const loginSignupButton = document.querySelector('.login-signup-button');
+                    if (loginSignupButton) {
+                        loginSignupButton.click();
+                    }
+                }
             }
         });
 

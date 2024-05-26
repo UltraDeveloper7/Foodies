@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS "order_content" (
 );
 
 CREATE TABLE IF NOT EXISTS "payment" (
-    "id" INTEGER PRIMARY KEY,
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
     "order_id" INTEGER,
     "user_email" VARCHAR,
     "amount" VARCHAR,

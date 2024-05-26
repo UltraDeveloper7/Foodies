@@ -1,14 +1,5 @@
 // login.js
 
-export function openModal() {
-    const modal = document.getElementById("loginModal");
-    const loginContainer = document.getElementById("login-container");
-    modal.style.display = "flex";
-    modal.classList.add("blur");
-    loginContainer.style.display = "block";
-    document.body.classList.add("modal-open");
-}
-
 document.addEventListener("DOMContentLoaded", function () {
     const container = document.getElementById('login-container');
     const registerBtn = document.getElementById('register');
@@ -29,6 +20,15 @@ document.addEventListener("DOMContentLoaded", function () {
     loginBtn.addEventListener('click', () => {
         container.classList.remove("active");
     });
+
+    function openModal() {
+        const modal = document.getElementById("loginModal");
+        const loginContainer = document.getElementById("login-container");
+        modal.style.display = "flex";
+        modal.classList.add("blur");
+        loginContainer.style.display = "block";
+        document.body.classList.add("modal-open");
+    }    
 
     function closeModal() {
         const modal = document.getElementById("loginModal");
