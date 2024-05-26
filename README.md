@@ -15,13 +15,13 @@ This repository contains the source code for **Foodies**, an online food deliver
 - Express.js
 - Handlebars.js
 - Express Sessions
-- MongoDB (for data storage)
+- SQLite (for data storage)
 - Bootstrap (for responsive design)
 
 ## Prerequisites
 Before you begin, ensure you have met the following requirements:
 - Node.js and npm installed
-- MongoDB installed and running
+- SQLite installed and running
 
 ## Installation
 1. Clone the repository:
