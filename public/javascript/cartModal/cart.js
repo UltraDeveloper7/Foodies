@@ -111,10 +111,31 @@ function addProductToCart(productDetails) {
 
     cartItemsContainer.appendChild(cartItem); // Append cart item to cart items container
 
+    // Save to local storage
+    saveCartToLocalStorage();
+
     // Attach event listeners to the new cart item
     attachEventListeners(cartItem);
     updateCartTotal(); // Update cart total
 }
+
+// Function to save cart items to local storage
+function saveCartToLocalStorage() {
+    const cartItems = [];
+    document.querySelectorAll('.cart-item-modal').forEach(cartItem => {
+        const name = cartItem.querySelector('.cart-item-details-modal span').textContent;
+        const price = parseFloat(cartItem.querySelector('.cart-item-price-modal strong').textContent.replace('€', ''));
+        const quantity = parseInt(cartItem.querySelector('.quantity-toggle-modal').textContent.trim().split(' ')[0], 10);
+        const image = cartItem.querySelector('.cart-item-image-modal img').src;
+        const comment = cartItem.querySelector('.cart-item-comment-input')?.value || '';
+
+        cartItems.push({ name, price, quantity, image, comment });
+    });
+
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    console.log('Cart items saved to local storage:', cartItems);
+}
+
 
 // Function to attach event listeners to cart item
 function attachEventListeners(cartItem) {
@@ -360,3 +381,6 @@ async function updateCartTotal() {
 }
 
 window.updateCartTotal = updateCartTotal; // Expose updateCartTotal function to global scope
+
+// Call saveCartToLocalStorage whenever cart is updated
+document.addEventListener('click', saveCartToLocalStorage);
