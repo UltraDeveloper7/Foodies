@@ -26,8 +26,8 @@ Before you begin, ensure you have met the following requirements:
 ## Installation
 1. Clone the repository:
     ```bash
-    git clone https://github.com/your-username/foodies.git
-    cd foodies
+    git clone https://github.com/UltraDeveloper7/Foodies.git
+    cd Foodies
     ```
 
 2. Install the dependencies:
@@ -39,44 +39,78 @@ Before you begin, ensure you have met the following requirements:
     Create a `.env` file in the root directory and add the following:
     ```plaintext
     PORT=3000
-    MONGODB_URI=mongodb://localhost:27017/foodies
     SESSION_SECRET=your-session-secret
     ```
 
 ## Running the Application
-1. Start the MongoDB server:
-    ```bash
-    mongod
-    ```
-
-2. Start the application:
+1. Start the application:
     ```bash
     npm start
     ```
 
-3. Open your browser and go to `http://localhost:3000`.
+2. Open your browser and go to `http://localhost:3000`.
 
 ## Directory Structure
 ```
-foodies/
+Foodies/
+├── .vscode/
+│   └── ...
+├── app-setup/
+│   ├── app-setup-session.mjs
+├── controller/
+│   ├── cart-controller.mjs
+│   ├── checkout-controller.mjs
+│   ├── footer-pages-controller.mjs
+│   ├── home-controller.mjs
+│   ├── login-controller.mjs
+│   ├── order-controller.mjs
+│   ├── search-controller.mjs
+│   ├── store-controller.mjs
+│   └── user-profile-controller.mjs
+├── docs/
+│   └── ...
+├── model/
+│   ├── db/
+│   │   └── ...
+│   ├── sessions/
+│   │   └── ...
+│   └── model.mjs
+├── node_modules/
+│   └── ...
 ├── public/
 │   ├── css/
+│   │   └── ...
 │   ├── images/
-│   └── js/
+│   │   └── ...
+│   └── javascript/
+│       └── ...
 ├── routes/
-│   ├── index.js
-│   ├── users.js
-│   └── orders.js
+│   └── foodies-routes.mjs
 ├── views/
 │   ├── layouts/
-│   │   └── main.handlebars
+│   │   └── main.hbs
 │   ├── partials/
-│   │   └── header.handlebars
-│   └── index.handlebars
+│   │   ├── cart-modal.hbs
+│   │   ├── footer.hbs
+│   │   ├── header.hbs
+│   │   ├── login.hbs
+│   │   ├── about.hbs
+│   │   ├── checkout.hbs
+│   │   ├── home.hbs
+│   │   ├── privacy-policy.hbs
+│   │   ├── search.hbs
+│   │   ├── store.hbs
+│   │   ├── terms-of-use.hbs
+│   │   └── user-profile.hbs
 ├── .env
-├── app.js
+├── .hintrc
+├── app.mjs
+├── LICENSE
+├── package-lock.json
 ├── package.json
-└── README.md
+├── Procfile
+└── start.mjs
+
 ```
 
 ## Scripts
@@ -94,7 +128,7 @@ foodies/
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Contact
-If you have any questions or issues, please contact [your-email@example.com](mailto:your-email@example.com).
+If you have any questions or issues, please contact [your-email@example.com](mailto:konstantinostoutounas@gmail.com).
 
 ---
 
