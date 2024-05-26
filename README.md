@@ -3,6 +3,23 @@
 ## Overview
 This repository contains the source code for **Foodies**, an online food delivery web application. The application allows users to browse menus, place orders, and manage their profiles. It is built using Node.js, Express, Handlebars for templating, and uses sessions for managing user authentication and state.
 
+## Table of Contents
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+  - [Clone from GitHub](#clone-from-github)
+  - [Download as ZIP](#download-as-zip)
+- [Usage](#usage)
+- [Running the Application](#running-the-application)
+- [Directory Structure](#directory-structure)
+- [Scripts](#scripts)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
+- [Disclaimer](#disclaimer)
+- [Acknowledgements](#acknowledgements)
+
 ## Features
 - User authentication and session management
 - Menu browsing and food item details
@@ -24,10 +41,23 @@ Before you begin, ensure you have met the following requirements:
 - SQLite installed and running
 
 ## Installation
+You can install the application by either cloning it from GitHub or downloading it as a ZIP file.
+
+### Clone from GitHub
 1. Clone the repository:
     ```bash
     git clone https://github.com/UltraDeveloper7/Foodies.git
     cd Foodies
+    ```
+
+### Download as ZIP
+1. Download the ZIP file from GitHub:
+    - Go to the [repository page](https://github.com/UltraDeveloper7/Foodies).
+    - Click on the "Code" button and select "Download ZIP".
+    - Extract the downloaded ZIP file.
+    - Navigate to the extracted directory:
+    ```bash
+    cd Foodies-main
     ```
 
 2. Install the dependencies:
@@ -41,6 +71,9 @@ Before you begin, ensure you have met the following requirements:
     PORT=3000
     SESSION_SECRET=your-session-secret
     ```
+
+## Usage
+To use the Foodies application, follow the instructions in the "Running the Application" section to start the server, then navigate to the application in your web browser. You can register a new user, browse the menu, place orders, and manage your profile through the user interface.
 
 ## Running the Application
 1. Start the application:
@@ -110,7 +143,6 @@ Foodies/
 ├── package.json
 ├── Procfile
 └── start.mjs
-
 ```
 
 ## Scripts
@@ -128,14 +160,17 @@ Foodies/
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Contact
-If you have any questions or issues, please contact [your-email@example.com](mailto:konstantinostoutounas@gmail.com).
+If you have any questions or issues, please contact [konstantinostoutounas@gmail.com](mailto:konstantinostoutounas@gmail.com).
+
+## Disclaimer
+This application is a project created for educational purposes. The features and functionalities may not be fully comprehensive or secure for production use.
+
+## Acknowledgements
+Special thanks to all the contributors and open-source libraries that made this project possible.
 
 ---
 
 Thank you for using Foodies! Happy ordering!
-
-
-
 
 
 
