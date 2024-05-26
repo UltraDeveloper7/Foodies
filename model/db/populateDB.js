@@ -311,9 +311,9 @@ const productCategories = [
 
 
 
-// Function to generate random prices for menu items based on their category
-function getRandomPrice(category) {
-    switch (category) {
+// Function to generate random prices for menu items based on their category or specific item name
+function getRandomPrice(categoryOrItemName) {
+    switch (categoryOrItemName) {
         case 'Coffees':
             return Math.floor((Math.random() * 2 + 1).toFixed(2)); // Random price between 2 and 3
         case 'Teas':
@@ -360,10 +360,15 @@ function getRandomPrice(category) {
             return Math.floor((Math.random() * 2 + 3).toFixed(2)); // Random price between 3 and 5
         case 'Vegan Sandwiches':
             return Math.floor((Math.random() * 2 + 4).toFixed(2)) + 0.5; // Random price between 4 and 6
+        case 'Water (Small)':
+            return 0.50; // Custom price for Water (Small)
+        case 'Water (Large)':
+            return 1.00; // Custom price for Water (Large)
         default:
             return Math.floor((Math.random() * 5 + 1).toFixed(2)); // Random price between 1 and 6
     }
 }
+
 
 // Create and insert data into the menu table
 const storeMenus = [];
